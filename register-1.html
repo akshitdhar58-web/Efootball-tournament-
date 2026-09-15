@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register — eFootball Showdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch-dark: #0a1f16;
+    --ink: #08110d;
+    --lime: #c7f23c;
+    --gold: #e8b34c;
+    --chalk: #f2f4ec;
+    --line: rgba(242,244,236,0.16);
+    --error: #ff6b6b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--ink);
+    display:flex;
+    justify-content:center;
+    padding: 40px 20px;
+    font-family:'Inter', sans-serif;
+    color: var(--chalk);
+  }
+  .card{
+    width: 560px;
+    max-width: 100%;
+    background:
+      radial-gradient(circle at 85% 0%, rgba(199,242,60,0.10), transparent 40%),
+      linear-gradient(180deg, var(--pitch-dark) 0%, var(--ink) 78%);
+    border: 1px solid rgba(242,244,236,0.08);
+    border-radius: 14px;
+    padding: 40px 40px 36px 40px;
+  }
+  .kicker{
+    font-size: 13px;
+    font-weight:700;
+    color: var(--lime);
+  }
+  h1{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size: 44px;
+    line-height:0.95;
+    margin-top: 10px;
+  }
+  .sub{
+    margin-top:12px;
+    font-size:15px;
+    font-weight:600;
+    color: rgba(242,244,236,0.65);
+    line-height:1.5;
+  }
+
+  form{ margin-top: 30px; }
+  .field{ margin-bottom: 20px; }
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color: rgba(242,244,236,0.6);
+    margin-bottom: 8px;
+  }
+  input{
+    width:100%;
+    background: rgba(242,244,236,0.06);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 13px 14px;
+    font-size: 15px;
+    font-weight:600;
+    color: var(--chalk);
+    font-family:'Inter', sans-serif;
+  }
+  input::placeholder{ color: rgba(242,244,236,0.32); }
+  input:focus{
+    outline: none;
+    border-color: var(--lime);
+  }
+  .hint{
+    font-size: 12px;
+    font-weight:600;
+    color: rgba(242,244,236,0.4);
+    margin-top: 6px;
+  }
+  .error-msg{
+    font-size: 12px;
+    font-weight:700;
+    color: var(--error);
+    margin-top: 6px;
+    display:none;
+  }
+  .field.invalid input{ border-color: var(--error); }
+  .field.invalid .error-msg{ display:block; }
+
+  button{
+    width:100%;
+    margin-top: 8px;
+    background: var(--lime);
+    color: var(--ink);
+    border: none;
+    border-radius: 999px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight:800;
+    font-family:'Inter', sans-serif;
+    cursor:pointer;
+  }
+  button:active{ transform: translateY(1px); }
+
+  .fee-note{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 26px;
+  }
+  .fee-note div:first-child{ font-size:13px; font-weight:700; color: rgba(242,244,236,0.6); }
+  .fee-note div:last-child{ font-family:'Anton', sans-serif; font-size:22px; color: var(--gold); }
+
+  .confirm{
+    display:none;
+    text-align:center;
+    padding-top: 10px;
+  }
+  .confirm.show{ display:block; }
+  form.hide{ display:none; }
+  .confirm h2{
+    font-family:'Anton', sans-serif;
+    font-size: 30px;
+    font-weight:400;
+    color: var(--lime);
+  }
+  .confirm p{
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight:600;
+    color: rgba(242,244,236,0.65);
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="kicker">8 PLAYERS · 2 GROUPS OF 4 · 25 SEPT · 8:00 PM</div>
+    <h1>REGISTER FOR THE SHOWDOWN</h1>
+    <div class="sub">Fill in your details below. Winners are paid out directly via UPI, so double-check that field before submitting.</div>
+
+    <form id="regForm" novalidate>
+      <div class="fee-note">
+        <div>ENTRY FEE</div>
+        <div>₹100</div>
+      </div>
+
+      <div class="field">
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" placeholder="e.g. Akshit Roy" required>
+        <div class="error-msg">Please enter your name.</div>
+      </div>
+
+      <div class="field">
+        <label for="efid">eFootball ID</label>
+        <input type="text" id="efid" name="efid" placeholder="Your in-game eFootball ID" required>
+        <div class="error-msg">Please enter your eFootball ID.</div>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" required>
+        <div class="error-msg">Please enter a valid phone number.</div>
+      </div>
+
+      <div class="field">
+        <label for="upi">UPI ID (for reward payout)</label>
+        <input type="text" id="upi" name="upi" placeholder="yourname@bank" required>
+        <div class="error-msg">Please enter a valid UPI ID.</div>
+        <div class="hint">Only used to send prize money if you win.</div>
+      </div>
+
+      <button type="submit">Submit registration</button>
+    </form>
+
+    <div class="confirm" id="confirmBox">
+      <h2>You're in!</h2>
+      <p>Your email app should have opened with your details ready to send to the organizer.<br>If it didn't open automatically, please email your details directly.</p>
+    </div>
+  </div>
+
+<script>
+  // Replace this with the organizer's real email address before publishing.
+  const ORGANIZER_EMAIL = "organizer@example.com";
+
+  const form = document.getElementById('regForm');
+  const confirmBox = document.getElementById('confirmBox');
+
+  function setError(field, isInvalid){
+    field.closest('.field').classList.toggle('invalid', isInvalid);
+  }
+
+  function isValidPhone(v){
+    return /^[0-9]{10}$/.test(v.trim());
+  }
+  function isValidUpi(v){
+    return /^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test(v.trim());
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = document.getElementById('name');
+    const efid = document.getElementById('efid');
+    const phone = document.getElementById('phone');
+    const upi = document.getElementById('upi');
+
+    let valid = true;
+
+    setError(name, !name.value.trim()); if(!name.value.trim()) valid = false;
+    setError(efid, !efid.value.trim()); if(!efid.value.trim()) valid = false;
+    setError(phone, !isValidPhone(phone.value)); if(!isValidPhone(phone.value)) valid = false;
+    setError(upi, !isValidUpi(upi.value)); if(!isValidUpi(upi.value)) valid = false;
+
+    if(!valid) return;
+
+    const subject = encodeURIComponent("eFootball Showdown Registration - " + name.value.trim());
+    const body = encodeURIComponent(
+      "Name: " + name.value.trim() + "\n" +
+      "eFootball ID: " + efid.value.trim() + "\n" +
+      "Phone: " + phone.value.trim() + "\n" +
+      "UPI ID: " + upi.value.trim() + "\n"
+    );
+
+    window.location.href = "mailto:" + ORGANIZER_EMAIL + "?subject=" + subject + "&body=" + body;
+
+    form.classList.add('hide');
+    confirmBox.classList.add('show');
+  });
+</script>
+</body>
+</html>

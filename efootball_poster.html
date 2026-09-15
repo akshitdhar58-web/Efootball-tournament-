@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>eFootball Tournament Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch-dark: #0a1f16;
+    --pitch: #123a28;
+    --ink: #08110d;
+    --lime: #c7f23c;
+    --gold: #e8b34c;
+    --chalk: #f2f4ec;
+    --line: rgba(242,244,236,0.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--ink);
+    display:flex;
+    justify-content:center;
+    padding: 40px 20px;
+    font-family:'Inter', sans-serif;
+  }
+  .poster{
+    width: 800px;
+    min-height: auto;
+    background:
+      radial-gradient(circle at 85% 8%, rgba(199,242,60,0.10), transparent 40%),
+      linear-gradient(180deg, var(--pitch-dark) 0%, var(--ink) 78%);
+    color: var(--chalk);
+    position: relative;
+    overflow: hidden;
+    display:flex;
+    flex-direction:column;
+    border: 1px solid rgba(242,244,236,0.08);
+  }
+
+  /* pitch line texture */
+  .pitch-lines{
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(
+      90deg, rgba(242,244,236,0.035) 0 2px, transparent 2px 90px
+    );
+    pointer-events:none;
+  }
+  .halfway{
+    position:absolute;
+    left:0; right:0; top:50%;
+    height:1px;
+    background: var(--line);
+  }
+  .center-circle{
+    position:absolute;
+    width:220px; height:220px;
+    border:1px solid rgba(242,244,236,0.06);
+    border-radius:50%;
+    left:50%; top:50%;
+    transform: translate(-50%,-50%);
+  }
+
+  .top{
+    position:relative;
+    padding: 46px 48px 0 48px;
+    z-index:2;
+  }
+  .kicker{
+    font-size: 14px;
+    font-weight:700;
+    letter-spacing: 0.02em;
+    color: var(--lime);
+  }
+  .kicker span{ color: rgba(242,244,236,0.55); }
+
+  h1.title{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    line-height: 0.86;
+    letter-spacing: 0.01em;
+    font-size: 108px;
+    margin-top: 14px;
+    color: var(--chalk);
+  }
+  h1.title .lime{ color: var(--lime); }
+
+  .subtitle{
+    margin-top: 18px;
+    font-size: 19px;
+    font-weight:600;
+    color: rgba(242,244,236,0.72);
+    max-width: 420px;
+    line-height:1.45;
+  }
+
+  .details{
+    position:relative;
+    z-index:2;
+    margin: 44px 48px 0 48px;
+    display:flex;
+    gap: 14px;
+  }
+  .detail-card{
+    flex:1;
+    background: rgba(242,244,236,0.05);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 20px;
+  }
+  .detail-label{
+    font-size: 12px;
+    font-weight:700;
+    color: var(--lime);
+    margin-bottom: 8px;
+  }
+  .detail-value{
+    font-size: 22px;
+    font-weight:800;
+    color: var(--chalk);
+    line-height:1.25;
+  }
+  .detail-value small{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color: rgba(242,244,236,0.6);
+    margin-top:2px;
+  }
+
+  .prize-board{
+    position:relative;
+    z-index:2;
+    margin: 40px 48px 0 48px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(8,17,13,0.45);
+    padding: 26px 30px;
+  }
+  .prize-board-title{
+    font-size:13px;
+    font-weight:700;
+    color: rgba(242,244,236,0.6);
+    margin-bottom: 18px;
+  }
+  .prize-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .prize-row:first-of-type{ border-top:none; }
+  .prize-place{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+  }
+  .place-num{
+    font-family:'Anton', sans-serif;
+    font-size: 34px;
+    color: rgba(242,244,236,0.28);
+  }
+  .prize-row.first .place-num{ color: var(--gold); }
+  .place-label{
+    font-size: 16px;
+    font-weight:700;
+    color: var(--chalk);
+  }
+  .prize-amount{
+    font-family:'Anton', sans-serif;
+    font-size: 40px;
+    color: var(--chalk);
+  }
+  .prize-row.first .prize-amount{ color: var(--gold); }
+  .rupee{ font-size: 22px; font-weight:700; vertical-align: 4px; margin-right:2px; }
+
+  .footer{
+    position:relative;
+    z-index:2;
+    margin-top: 36px;
+    padding: 34px 48px 40px 48px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-top: 1px solid var(--line);
+  }
+  .footer-brand{
+    font-family:'Anton', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    color: var(--chalk);
+  }
+  .footer-brand span{ color: var(--lime); }
+  .footer-cta{
+    font-size: 14px;
+    font-weight:700;
+    color: var(--ink);
+    background: var(--lime);
+    padding: 12px 22px;
+    border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <div class="pitch-lines"></div>
+    <div class="halfway"></div>
+    <div class="center-circle"></div>
+
+    <div class="top">
+      <div class="kicker">8 PLAYERS <span>· 2 GROUPS OF 4 · GROUP TOPPERS MEET IN THE FINAL</span></div>
+      <h1 class="title">EFOOTBALL<br><span class="lime">SHOWDOWN</span></h1>
+      <div class="subtitle">Win your group, then win the final — three straight wins with no loss takes the cup.</div>
+    </div>
+
+    <div class="details">
+      <div class="detail-card">
+        <div class="detail-label">DATE &amp; TIME</div>
+        <div class="detail-value">25 Sept<small>Kickoff 8:00 PM</small></div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">ENTRY FEE</div>
+        <div class="detail-value">₹100<small>per player</small></div>
+      </div>
+    </div>
+
+    <div class="prize-board" style="margin-top:24px;">
+      <div class="prize-board-title">FORMAT</div>
+      <div style="font-size:15px; font-weight:600; color:rgba(242,244,236,0.75); line-height:1.65;">
+        8 players split into 2 groups of 4. Inside each group: two semifinals, then the semifinal winners play a group decider. The two group toppers meet in the final — win all 3 of your matches, and the cup is yours.
+      </div>
+    </div>
+
+    <div class="prize-board">
+      <div class="prize-board-title">PRIZE POOL</div>
+      <div class="prize-row first">
+        <div class="prize-place">
+          <div class="place-num">01</div>
+          <div class="place-label">Champion</div>
+        </div>
+        <div class="prize-amount"><span class="rupee">₹</span>400</div>
+      </div>
+      <div class="prize-row">
+        <div class="prize-place">
+          <div class="place-num">02</div>
+          <div class="place-label">Runner-up</div>
+        </div>
+        <div class="prize-amount"><span class="rupee">₹</span>200</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-brand">e<span>FOOTBALL</span> CUP</div>
+      <a class="footer-cta" href="register.html" style="text-decoration:none;">Register now</a>
+    </div>
+  </div>
+</body>
+</html>
